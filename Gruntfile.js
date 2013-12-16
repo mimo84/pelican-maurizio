@@ -2,25 +2,26 @@
 
 module.exports = function (grunt) {
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  pkg: grunt.file.readJSON('package.json'),
-  uglify: {
-    prod: {
-      files: {
-        '/static/js/main.min.js': [
-        '/source/**/*.js'
-        ]
+
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+
+    uglify: {
+      prod: {
+        files: {
+          '/static/js/main.min.js': ['/source/**/*.js']
+        }
       }
-    }
-  },
-  jsbeautifier: {
+    },
+    jsbeautifier: {
       modify: {
-        src: '/source/**/*.js',
+        src: ['/source/**/*.js', 'Gruntfile.js'],
         options: {
           config: '.jsbeautifyrc'
         }
       },
       verify: {
-        src: '/source/**/*.js',
+        src: ['/source/**/*.js', 'Gruntfile.js'],
         options: {
           // mode: 'VERIFY_ONLY',
           config: '.jsbeautifyrc'
@@ -29,11 +30,16 @@ module.exports = function (grunt) {
     },
     // Hint the JS
     jshint: {
-      files: '/source/**/*.js',
+      files: ['/source/**/*.js', 'Gruntfile.js'],
       options: {
         jshintrc: '.jshintrc'
       },
-    },
+    }
+  });
+
+  grunt.registerTask('default', [
+    'jsbeautifier',
+    'jshint'
+  ]);
 
 };
-
