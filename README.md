@@ -1,7 +1,8 @@
 
 # Pelican-Maurizio
 
-This theme is based on a fork of [pelican-svbtle](https://github.com/wting/pelican-svbtle), which is a never ready website for my Engligh blog [maurizionapoleoni.de](http://maurizionapoleoni.de/blog/).
+This pelican theme is based on a fork of [pelican-svbtle](https://github.com/wting/pelican-svbtle).
+I use it as base theme for my blog [maurizionapoleoni.de](http://maurizionapoleoni.de/blog/).
 
 ## AUTHORS
 
