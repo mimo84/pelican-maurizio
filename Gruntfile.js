@@ -6,11 +6,41 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    watch: {
+      sass: {
+        files: ['source/scss/{,*/}*.{scss,sass}'],
+        tasks: ['sass', 'autoprefixer']
+      },
+    },
+    sass: { // Task
+      dist: { // Target
+        options: { // Target options
+          style: 'expanded'
+        },
+        files: {
+          'static/css/style.css': 'source/scss/main.scss'
+        }
+      }
+    },
     uglify: {
       prod: {
         files: {
           '/static/js/main.min.js': ['/source/**/*.js']
         }
+      }
+    },
+    // Add brower vendor specific prefixes
+    autoprefixer: {
+      options: {
+        browsers: ['last 3 version', '> 1%', 'ff > 15', 'ie 8', 'ie 7']
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'static/css',
+          src: '{,*/}*.css',
+          dest: 'static/css/'
+        }]
       }
     },
     jsbeautifier: {
@@ -39,7 +69,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'jsbeautifier',
-    'jshint'
+    'jshint',
+    'autoprefixer',
+    'watch'
   ]);
 
 };
